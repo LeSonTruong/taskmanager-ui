@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+:root {
+  --background: #eef2f6;
+  --surface: #ffffff;
+  --surface-muted: rgba(255,255,255,0.85);
+  --border: rgba(148,163,184,0.25);
+  --text: #102a43;
+  --muted: #52667a;
+  --accent: #0f766e;
+  --accent-soft: #d8f3f1;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f8fafc 0%, #eff4f9 100%);
+  color: var(--text);
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle at top left, rgba(15,118,110,0.08), transparent 25%), radial-gradient(circle at bottom right, rgba(56,189,248,0.08), transparent 18%);
+  opacity: 0.8;
+  z-index: -1;
+}
+
+html, body, #root {
+  min-height: 100vh;
+}
+
+#root {
+  isolation: isolate;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+button, input, textarea, select {
+  font: inherit;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #94a3b8;
+}
+
+::selection {
+  background: rgba(15,118,110,0.16);
+  color: var(--text);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-up {
+  animation: fadeInUp 0.55s ease-out both;
+}
