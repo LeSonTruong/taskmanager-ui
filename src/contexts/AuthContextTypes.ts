@@ -9,11 +9,6 @@ export interface User {
 interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
-  register: (
-    name: string,
-    email: string,
-    password: string,
-  ) => Promise<{ success: boolean; message: string }>;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   loading: boolean;
