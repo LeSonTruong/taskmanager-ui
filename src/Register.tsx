@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import api from './services/api';
+import { useAuth } from './hooks/useAuth';
 
 const registerHighlights = [
   {
@@ -19,9 +19,9 @@ const registerHighlights = [
 
 const Register: React.FC = () => {
   const [form, setForm] = useState({ name: '', email: '', password: '' });
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const { register, loading } = useAuth();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [event.target.name]: event.target.value });
@@ -33,15 +33,16 @@ const Register: React.FC = () => {
     setSuccess('');
 
     try {
-      setLoading(true);
-      await api.post('/auth/register', form);
-      setSuccess('Dang ky thanh cong. Hay kiem tra email de xac thuc tai khoan.');
-      setForm({ name: '', email: '', password: '' });
+      const result = await register(form.name, form.email, form.password);
+      if (result.success) {
+        setSuccess(result.message);
+        setForm({ name: '', email: '', password: '' });
+      } else {
+        setError(result.message);
+      }
     } catch (err) {
-      const axiosError = err as { response?: { data?: { message?: string } } };
-      setError(axiosError.response?.data?.message || 'Co loi xay ra khi dang ky.');
-    } finally {
-      setLoading(false);
+      console.error('Registration error:', err);
+      setError('Co loi xay ra khi dang ky.');
     }
   };
 

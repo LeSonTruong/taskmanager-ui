@@ -26,8 +26,14 @@ const Login: React.FC = () => {
       await login(form.email, form.password);
       navigate('/users');
     } catch (err) {
-      console.error('Login error:', err);
-      setError('Dang nhap that bai. Vui long kiem tra email va mat khau.');
+      const axiosError = err as {
+        response?: { data?: { message?: string; error?: string } };
+      };
+      const errorMessage =
+        axiosError.response?.data?.message ||
+        axiosError.response?.data?.error ||
+        'Dang nhap that bai. Vui long kiem tra email va mat khau.';
+      setError(errorMessage);
     }
   };
 
